@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+
+	"github.com/samrityy/file-encryption/filecrypt"
 	"golang.org/x/term"
 )
 
@@ -77,13 +79,11 @@ func getPassword() []byte {
 		fmt.Print("\n Password doo not match , please try again\n")
 		return getPassword()
 	}
+	return password
 }
 
 func validatePassword(password1 []byte, password2 []byte) bool {
-	if !bytes.Equal(password1, password2) {
-		return false
-	}
-	return true
+	return bytes.Equal(password1, password2)
 }
 
 func validateFile(file string) bool {
