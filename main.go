@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"golang.org/x/term"
 )
 
 func main() {
@@ -53,6 +54,19 @@ func encryptHandle() {
 
 }
 func decryptHandle() {
+	if len(os.Args) < 3 {
+		fmt.Println("missing the path to the file . for more info , run the help command")
+		os.Exit(0)
+	}
+	file := os.Args[2]
+	if !validateFile(file) {
+		panic("File not found")
+	}
+	fmt.Println("Enter passsword")
+	password, _ := term.ReadPassword(0)
+	fmt.Println("\n Decrypting...")
+	filecrypt.Decrypt(file, password)
+	fmt.Println("\n file successfully decrypted")
 }
 func getPassword() []byte {
 	fmt.Print("Enter password: ")
