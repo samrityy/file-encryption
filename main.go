@@ -73,6 +73,10 @@ func decryptHandle() {
 func getPassword() []byte {
 	fmt.Print("Enter password: ")
 	password, _ := term.ReadPassword(0)
+	if len(password) < 8 {
+		fmt.Print("\n Password must be at least 8 characters long, please try again\n")
+		return getPassword()
+	}
 	fmt.Print("/n Confirm Password")
 	password2, _ := term.ReadPassword(0)
 	if !validatePassword(password, password2) {
